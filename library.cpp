@@ -1,6 +1,5 @@
-# Programing-Fundamental-Library-Management-System-
-First Semester Project
-<br>
+## 📦 Code Snippet
+```cpp
 #include <iostream>
 #include <string>
 using namespace std;
@@ -196,4 +195,4 @@ int main() {
     cout << "\nThank you for using the Library Management System!\n";
     return 0;
 }
-<br>
+
