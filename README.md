@@ -9,7 +9,6 @@ struct TBook {
     bool status; // true = available, false = issued
     int issuedto = 0;
 };
-
 TBook AddSingleBook() {
     TBook book;
     cout << "Enter category of the book: ";
@@ -21,7 +20,6 @@ TBook AddSingleBook() {
     cout << "Enter location of the book:\n1. Rack 1\n2. Rack 2\n3. Rack 3\n";
     int choice;
     cin >> choice;
-
     switch (choice) {
     case 1: book.location = "Rack 1"; break;
     case 2: book.location = "Rack 2"; break;
@@ -67,7 +65,6 @@ void Returnbook(TBook books[], int& bookCount) {
             cout << "No books to return.\n";
             return;
         }
-
         int choice;
         cout << "Enter the serial number to return the book: ";
         do {
@@ -76,18 +73,14 @@ void Returnbook(TBook books[], int& bookCount) {
                 cout << "Invalid choice. Enter again: ";
             }
         } while (choice < 1 || choice > j);
-
         int bookIndex = issuedIndex[choice - 1];
         books[bookIndex].status = true;
         books[bookIndex].issuedto = 0;
-
         int fine = 0;
         char dmg, late;
-
         cout << "Is the book damaged? (y/n): ";
         cin >> dmg;
         if (dmg == 'y' || dmg == 'Y') fine += 50;
-
         cout << "Is the book returned late? (y/n): ";
         cin >> late;
         if (late == 'y' || late == 'Y') {
@@ -96,14 +89,11 @@ void Returnbook(TBook books[], int& bookCount) {
             cin >> days;
             fine += days * 5;
         }
-
         cout << "\n=== Return Receipt ===\n";
         cout << "Total Fine: Rs. " << fine << "\n";
         cout << "Book return completed.\n";
-
         cout << "Do you want to return another book? (y/n): ";
         cin >> ans;
-
     } while (ans == 'y' || ans == 'Y');
 }
 
@@ -121,12 +111,10 @@ void lendbook(TBook books[], int& bookCount) {
                 availableIndex[j++] = i;
             }
         }
-
         if (j == 0) {
             cout << "No available books for lending.\n";
             return;
         }
-
         int choice;
         cout << "Enter the serial number to lend: ";
         do {
@@ -135,12 +123,10 @@ void lendbook(TBook books[], int& bookCount) {
                 cout << "Invalid choice. Enter again: ";
             }
         } while (choice < 1 || choice > j);
-
         int bookIndex = availableIndex[choice - 1];
         int arid;
         cout << "Enter last 4 digits of your ARID number: ";
         cin >> arid;
-
         bool alreadyIssued = false;
         for (int i = 0; i < bookCount; i++) {
             if (books[i].issuedto == arid) {
@@ -148,7 +134,6 @@ void lendbook(TBook books[], int& bookCount) {
                 break;
             }
         }
-
         if (alreadyIssued) {
             cout << "You have already issued a book. Return it first.\n";
         }
@@ -158,10 +143,8 @@ void lendbook(TBook books[], int& bookCount) {
             cout << "Book issued successfully!\n";
             cout << "Title: " << books[bookIndex].name << "\n";
         }
-
         cout << "Do you want to lend another book? (y/n): ";
         cin >> ans;
-
     } while (ans == 'y' || ans == 'Y');
 }
 
@@ -182,7 +165,6 @@ int main() {
     const int MaxBOOKS = 100;
     TBook books[MaxBOOKS];
     int bookCount = 0;
-
     // Adding some default books
     books[bookCount++] = { "Shakespeare's Sonnets", "William Shakespeare", "English", "Rack 1", false, 9876 };
     books[bookCount++] = { "Pride and Prejudice", "Jane Austen", "English", "Rack 2", false, 5678 };
@@ -190,9 +172,7 @@ int main() {
     books[bookCount++] = { "C++ Programming", "Bjarne Stroustrup", "Programming", "Rack 1", true };
     books[bookCount++] = { "Clean Code", "Robert C. Martin", "Development", "Rack 2", true };
     books[bookCount++] = { "Design Patterns", "Erich Gamma", "Architecture", "Rack 3", true };
-
     cout << "\n\t\tWELCOME TO THE FUTURE LIBRARY MANAGEMENT SYSTEM\n";
-
     char choice, exitChoice;
     do {
         cout << "\nWhat do you want to do?\n"
@@ -202,7 +182,6 @@ int main() {
             << "V - View Books\n"
             << "Enter your choice: ";
         cin >> choice;
-
         switch (tolower(choice)) {
         case 'l': lendbook(books, bookCount); break;
         case 'r': Returnbook(books, bookCount); break;
@@ -210,12 +189,9 @@ int main() {
         case 'v': Viewbook(books, bookCount); break;
         default: cout << "Invalid option. Try again.\n";
         }
-
         cout << "\nDo you want to perform another operation? (y/n): ";
         cin >> exitChoice;
-
     } while (exitChoice == 'n' || exitChoice == 'N');
-
     cout << "\nThank you for using the Library Management System!\n";
     return 0;
 }
